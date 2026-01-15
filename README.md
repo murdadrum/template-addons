@@ -15,3 +15,10 @@ pnpm dev
 ## Root uses pnpm workspaces
 
 ## CI runs only if package.json exists
+
+
+✅ After you apply the add-on in a new project:
+```bash
+pnpm dlx create-vite@latest apps/web --template react-ts
+pnpm install
+pnpm dev
