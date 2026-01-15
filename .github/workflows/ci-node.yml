@@ -1,0 +1,46 @@
+name: CI (Node)
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  node:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Detect Node project
+        id: detect
+        run: |
+          if [ -f "package.json" ]; then
+            echo "has_node=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_node=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Setup Node
+        if: steps.detect.outputs.has_node == 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: "pnpm"
+
+      - name: Setup pnpm
+        if: steps.detect.outputs.has_node == 'true'
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: Install
+        if: steps.detect.outputs.has_node == 'true'
+        run: pnpm install --frozen-lockfile=false
+
+      - name: Lint
+        if: steps.detect.outputs.has_node == 'true'
+        run: pnpm lint
+
+      - name: Format check
+        if: steps.detect.outputs.has_node == 'true'
+        run: pnpm format
