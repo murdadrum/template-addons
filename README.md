@@ -1,14 +1,10 @@
-# template-addons
-template-addons
+# Add-on: Node + Vite/React
 
-addons/node-vite-react/
-  apps/web/                 # created when you scaffold
-  .github/workflows/ci-node.yml
-  .nvmrc
-  .npmrc
-  package.json              # workspace root
-  pnpm-workspace.yaml
-  eslint.config.js
-  prettier.config.cjs
-  .prettierignore
-  README.md
+## Apply
+Copy this folder’s contents into your repo root.
+
+## Scaffold app
+```bash
+pnpm dlx create-vite@latest apps/web --template react-ts
+pnpm install
+pnpm dev
